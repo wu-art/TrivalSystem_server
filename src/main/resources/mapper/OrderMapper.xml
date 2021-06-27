@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.BsTravel.mapper.OrderRepository">
+
+    <!--    分页查询所有-->
+    <!--    limit #{start},#{rows}  分页设置-->
+    <select id="findByPage" resultType="Order">
+        select id,travelName,travelTime,ticket,username,descript,tel,orderType,payState
+        from orderList
+        order by id
+        limit #{start},#{rows}
+    </select>
+
+    <!--查询总条数-->
+    <select id="findTotals" resultType="Integer">
+        select count(id) from orderList
+    </select>
+
+    <!--订单添加-->
+    <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+        insert into orderList values(#{id},#{travelName},#{travelTime},#{ticket},#{username},#{descript},#{tel},#{orderType},#{payState})
+    </insert>
+
+    <!--省份订单-->
+    <delete id="delete" parameterType="String">
+        delete from orderList where id = #{id}
+    </delete>
+
+    <!--修改订单信息-->
+    <update id="update" parameterType="Order">
+        update orderList set id=#{id},travelName=#{travelName},travelTime=#{travelTime},ticket=#{ticket},username=#{username},descript=#{descript},tel=#{tel},orderType=#{orderType},payState=#{payState}
+        where id=#{id}
+    </update>
+
+</mapper>

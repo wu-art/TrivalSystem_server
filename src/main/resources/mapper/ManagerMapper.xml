@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.BsTravel.mapper.ManagerRepository">
+
+<resultMap id="BaseResultMap" type="com.BsTravel.entity.Manager">
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+</resultMap>
+
+<!--    用户注册映射-->
+<insert id="addUser" parameterType="com.BsTravel.entity.Manager">
+        INSERT INTO manager(manager,password,phone) VALUES(#{username},#{password},#{phone})
+</insert>
+
+<!--    用户登录映射 / 选择数据库中用户信息-->
+<select id="queryByName" resultType="com.BsTravel.entity.Manager">
+        SELECT * FROM manager WHERE manager = #{manager}
+    </select>
+</mapper>

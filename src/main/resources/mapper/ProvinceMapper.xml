@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.BsTravel.mapper.ProvinceRepository">
+
+<!--    分页查询所有-->
+<!--    order by id  通过省份id排序-->
+<!--    limit #{start},#{rows}  分页设置-->
+    <select id="findByPage" resultType="Province">
+        select id,name,tags,placecounts,administrators
+        from province
+        order by id
+        limit #{start},#{rows}
+    </select>
+
+<!--查询总条数-->
+    <select id="findTotals" resultType="Integer">
+        select count(id) from province
+    </select>
+
+    <!--省份添加-->
+    <insert id="save" parameterType="Province" useGeneratedKeys="true" keyProperty="id">
+        insert into province values(#{id},#{name},#{tags},#{placecounts},#{administrators})
+    </insert>
+
+    <!--省份删除-->
+    <delete id="delete" parameterType="String">
+        DELETE from province where id = #{id}
+    </delete>
+
+    <!--查询省份-->
+    <select id="findOne" resultType="Province">
+        select id,name,tags,placecounts,administrators
+        from province
+        where name =#{name}
+    </select>
+
+    <!--修改省份信息-->
+    <update id="update" parameterType="Province">
+        update province set name=#{name},tags=#{tags},placecounts=#{placecounts},administrators=#{administrators}
+        where id=#{id}
+    </update>
+
+</mapper>
